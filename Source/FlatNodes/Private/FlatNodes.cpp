@@ -7,6 +7,8 @@
 #include "Styling/SlateStyleMacros.h"
 #include "EditorStyleSet.h"
 
+#include "Misc/EngineVersionComparison.h"
+
 #define LOCTEXT_NAMESPACE "FFlatNodesModule"
 
 #define RootToContentDir Style->RootToContentDir
@@ -47,7 +49,9 @@ void FFlatNodesModule::ApplyEditorStyle()
 	else
 	{
 		FSlateBrush* HeaderBrush = FlatNodesSettings->CreateHeaderBrush();
+#if UE_VERSION_OLDER_THAN(5, 7, 0) // <5.7.0
 		HeaderBrush->Margin = FMargin(0, -1.0f / 32.0f, -3.0f / 20.0f, 0);
+#endif // pre-5.7.0
 		HeaderBrush->DrawAs = ESlateBrushDrawType::Box;
 		Style->Set("Graph.Node.ColorSpill", HeaderBrush);
 	}
